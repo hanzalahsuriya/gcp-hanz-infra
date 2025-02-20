@@ -30,17 +30,18 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-    #   - name: Authenticate to GCP (Dynamic Per Environment)
+      #Use the Terraform Bootstrap Service Account (One-Time Authentication) 
+      - name: Authenticate to GCP (Bootstrap) 
+        uses: google-github-actions/auth@v1 
+        with:
+          credentials_json: ${{ secrets.GCP_TERRAFORM_BOOTSTRAP_KEY }}
+
+    
+    #   - name: Authenticate to GCP (Using TF Vars)
     #     uses: google-github-actions/auth@v1
     #     with:
-    #       workload_identity_provider: "projects/${{ secrets[format('GCP_PROJECT_NUMBER_{0}', matrix.environment)] }}/locations/global/workloadIdentityPools/github/providers/github-provider"
-    #       service_account: "github-actions@${{ secrets[format('GCP_PROJECT_ID_{0}', matrix.environment)] }}.iam.gserviceaccount.com"
-
-      - name: Authenticate to GCP (Using TF Vars)
-        uses: google-github-actions/auth@v1
-        with:
-          workload_identity_provider: "projects/${{ env.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/github-provider"
-          service_account: "github-actions@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com"
+    #       workload_identity_provider: "projects/${{ env.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/github-provider"
+    #       service_account: "github-actions@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com"
 
 
       - name: Initialize Terraform
