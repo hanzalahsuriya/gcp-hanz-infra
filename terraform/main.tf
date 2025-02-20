@@ -11,6 +11,7 @@ terraform {
 # Using a variable (project_id) so we don’t hardcode it
 provider "google" {
   project = var.project_id
+  region  = var.region
 }
 
 # Define the Workload Identity Pool Once
