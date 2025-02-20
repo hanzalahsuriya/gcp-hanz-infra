@@ -8,7 +8,9 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    
+    permissions:
+      id-token: write   # ✅ Required for Workload Identity Federation
+      contents: read    # ✅ Required to read repo contents
     strategy:
       matrix:
         environment: [dev]  # Run for all environments
