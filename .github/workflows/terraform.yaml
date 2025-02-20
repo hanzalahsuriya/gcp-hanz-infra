@@ -21,8 +21,8 @@ jobs:
 
       - name: Read Terraform Variables
         run: |
-          echo "GCP_PROJECT_ID=$(awk -F' *= *' '$1=="project_id"{print $2}' envs/${{ matrix.environment }}.tfvars | tr -d '"')" >> $GITHUB_ENV
-          echo "GCP_PROJECT_NUMBER=$(awk -F' *= *' '$1=="project_number"{print $2}' envs/${{ matrix.environment }}.tfvars | tr -d '"')" >> $GITHUB_ENV
+          echo "GCP_PROJECT_ID=$(awk -F' *= *' '$1=="project_id"{print $2}' terraform/envs/${{ matrix.environment }}.tfvars | tr -d '"')" >> $GITHUB_ENV
+          echo "GCP_PROJECT_NUMBER=$(awk -F' *= *' '$1=="project_number"{print $2}' terraform/envs/${{ matrix.environment }}.tfvars | tr -d '"')" >> $GITHUB_ENV
 
 
       - name: Set up Terraform
@@ -47,4 +47,4 @@ jobs:
         run: terraform init
 
       - name: Apply Terraform for ${{ matrix.environment }}
-        run: terraform apply -auto-approve -var-file=envs/${{ matrix.environment }}.tfvars
+        run: terraform apply -auto-approve -var-file=terraform/envs/${{ matrix.environment }}.tfvars
