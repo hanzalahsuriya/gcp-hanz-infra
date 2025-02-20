@@ -44,7 +44,8 @@ jobs:
 
 
       - name: Initialize Terraform
-        run: terraform init
+        run: terraform init -upgrade
+        working-directory: terraform
 
       - name: Apply Terraform for ${{ matrix.environment }}
         run: terraform apply -auto-approve -var-file=envs/${{ matrix.environment }}.tfvars
