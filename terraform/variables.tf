@@ -18,3 +18,8 @@ variable "region" {
   type        = string
   default     = "europe-west2"
 }
+
+variable "github_org" {
+  description = "GitHub organization for workload identity"
+  type        = string
+}
