@@ -36,7 +36,7 @@ resource "google_iam_workload_identity_pool_provider" "github_provider" {
     "attribute.repository"    = "assertion.repository"
     "attribute.repository_owner" = "assertion.repository_owner"
   }
-  attribute_condition = "assertion.repository_owner == \"hanzalahsuriya\""
+  attribute_condition = "assertion.repository_owner == \"${var.github_org}\""
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
@@ -55,7 +55,7 @@ resource "google_service_account_iam_binding" "github_sa_binding" {
   service_account_id = google_service_account.github_sa.id
   role               = "roles/iam.workloadIdentityUser"
   members           = [
-    "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository_owner/hanzalahsuriya"
+    "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository_owner/${var.github_org}"
   ]
 }
 
